@@ -6,8 +6,19 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import { initializeTheme } from './composables/useAppearance';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+    faUser,
+    faPlus,
+    faTrash,
+    faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Task Manager';
+
+library.add(faUser, faPlus, faTrash, faTrashCan);
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -20,6 +31,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .component('font-awesome-icon', FontAwesomeIcon)
             .mount(el);
     },
     progress: {
